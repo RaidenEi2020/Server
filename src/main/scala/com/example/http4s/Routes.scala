@@ -4,10 +4,12 @@ import cats.effect.{IO, Ref}
 import org.http4s._
 import org.http4s.dsl.io._
 import org.slf4j.LoggerFactory
+
 import scala.sys.process._
 import java.util.concurrent.{LinkedBlockingQueue, TimeUnit}
 import java.util.concurrent.atomic.AtomicInteger
 import cats.effect.unsafe.implicits.global
+
 import scala.jdk.CollectionConverters._
 import scala.concurrent.duration.DurationInt
 
@@ -226,10 +228,10 @@ object Routes {
 
   def addCORSHeaders(response: Response[IO]): Response[IO] = {
     response.putHeaders(
-      Header("Access-Control-Allow-Origin", "*"),
-      Header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS"),
-      Header("Access-Control-Allow-Headers", "Content-Type, Authorization"),
-      Header("Access-Control-Allow-Credentials", "true")
+      "Access-Control-Allow-Origin" -> "*",
+      "Access-Control-Allow-Methods" -> "GET, POST, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Headers" -> "Content-Type, Authorization",
+      "Access-Control-Allow-Credentials" -> "true"
     )
   }
 }

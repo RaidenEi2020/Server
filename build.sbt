@@ -9,7 +9,7 @@ lazy val server = (project in file("."))
     organization := "com.example",
     name := "Server",
     version := "0.0.1-SNAPSHOT",
-    scalaVersion := "2.13.15",
+    scalaVersion := "3.6.3",
     libraryDependencies ++= Seq(
       "org.http4s" %% "http4s-ember-server" % Http4sVersion,
       "org.http4s" %% "http4s-dsl"          % Http4sVersion,
