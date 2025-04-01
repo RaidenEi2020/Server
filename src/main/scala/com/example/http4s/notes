@@ -1,0 +1,7 @@
+- it is necessary open the port to connection between caos and server
+- para conectar o caos ao server foi preciso configurar as rotas de modo a que tivessem CORS (Cross-Origin Resource Sharing) handling
+- input vir do input rebeca program
+- para server widget colocar o output do comando
+- dar set timeout máximo do comando
+- informar o user do timeout
+- ver respostas do tipo graficos
