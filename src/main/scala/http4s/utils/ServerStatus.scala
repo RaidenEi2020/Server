@@ -1,8 +1,15 @@
-package com.example.http4s
+package http4s.utils
 
 import java.lang.management.{ManagementFactory, OperatingSystemMXBean, RuntimeMXBean}
 
-object SystemStatus {
+object ServerStatus {
+
+  private var uptime = getUptime()
+  private var memoryUsage = getMemoryUsage()
+  private var threadCount = getThreadCount()
+  private var systemLoad = getSystemLoad()
+  private var queueSize = getQueueSize()
+
   def getUptime(): String = {
     val runtimeMXBean: RuntimeMXBean = ManagementFactory.getRuntimeMXBean
     val uptimeMillis = runtimeMXBean.getUptime
@@ -17,7 +24,7 @@ object SystemStatus {
     val totalMemory = runtime.totalMemory() / (1024 * 1024)
     val freeMemory = runtime.freeMemory() / (1024 * 1024)
     val usedMemory = totalMemory - freeMemory
-    s"Used memory: $usedMemory MB / Total memory: $totalMemory MB"
+    s"Used memory: $usedMemory MB"
   }
 
   def getThreadCount(): Int = {
@@ -29,5 +36,28 @@ object SystemStatus {
     val osMXBean: OperatingSystemMXBean = ManagementFactory.getOperatingSystemMXBean
     val systemLoad = osMXBean.getSystemLoadAverage
     if (systemLoad < 0) "N/A" else f"$systemLoad%.2f"
+  }
+
+  def getQueueSize(): Int = {
+    ProcessManager.getPendingQueue.size()
+  }
+
+  def updateStatus(): Unit = {
+    uptime = getUptime()
+    memoryUsage = getMemoryUsage()
+    threadCount = getThreadCount()
+    systemLoad = getSystemLoad()
+    queueSize = getQueueSize()
+  }
+
+  def getStatus(): String = {
+    updateStatus()
+    s"""
+       |Uptime: $uptime
+       |Memory Usage: $memoryUsage
+       |Thread Count: $threadCount
+       |System Load: $systemLoad
+       |Queue Size: $queueSize
+     """.stripMargin
   }
 }
