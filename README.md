@@ -1,6 +1,6 @@
 # Server
 
-This is a server that allows a .
+This is a server that allows a user of my CAOS extension to execute Operating System commands remotely.
 
 ## Requirements
 
