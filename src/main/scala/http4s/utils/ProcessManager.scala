@@ -33,8 +33,8 @@ object ProcessManager {
   def runProcess(process: ProcessData): IO[Response[IO]] = {
     val outputBuilder = new StringBuilder
     val logger = ProcessLogger(
-      line => outputBuilder.append(line).append("\n"),
-      err => outputBuilder.append("[ERROR] ").append(err).append("\n")
+      line => { val _ = outputBuilder.append(line).append("\n")},
+      err => {val _ = outputBuilder.append("[ERROR] ").append(err).append("\n")}
     )
     for {
       processWithOutput <- IO(Process(s"""bash -c '${process.cmd}'""").run(logger))

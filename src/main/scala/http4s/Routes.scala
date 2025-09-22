@@ -30,7 +30,7 @@ object Routes {
       ProcessManager.getPendingQueue.forEach { case processData =>
         pendingQueue.append(s"<li><b>${processData.cmd}</b> => ${processData.token}</li>\n")
       }
-      val historyTable = new StringBuilder
+
       val historyTableContent = ProcessManager.getProcessHistory.asScala.toList.sortBy(_.id).map {
         case processData =>
           val id = processData.id
